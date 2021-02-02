@@ -36,10 +36,34 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'bcrypt'
+# help keep secure passwords for users
+gem 'figaro'
+# keep api keys hidden
+gem 'json'
+# parses and generates json in ruby
+gem 'fast_jsonapi'
+# user to serialize ruby objects
+gem 'faraday'
+# helps make controller requests very easy in rails
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  # create dummy data for testing
+  gem 'shoulda-matchers'
+  # model validations
+  gem 'capybara'
+  # framework for testing
+  gem 'pry'
+  gem 'launchy'
+  # launching cross-platform applications
+  gem 'simplecov'
+  #  checking test coverage
+  gem 'rspec-pride'
 end
 
 group :development do
