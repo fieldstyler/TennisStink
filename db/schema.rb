@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_11_022229) do
+ActiveRecord::Schema.define(version: 2021_02_19_163729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_02_11_022229) do
     t.string "surface"
     t.string "notes"
     t.bigint "player_id"
+    t.string "partner"
     t.index ["player_id"], name: "index_matches_on_player_id"
   end
 
