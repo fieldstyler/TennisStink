@@ -12,6 +12,7 @@ RSpec.describe Match, type: :model do
     it {should validate_presence_of :date}
     it {should validate_presence_of :surface}
     it {should validate_presence_of :notes}
+    it {should validate_presence_of :opponent}
     #it {should validate_presence_of :partner}
   end
 end

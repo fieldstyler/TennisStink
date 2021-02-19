@@ -7,4 +7,6 @@ class Match < ApplicationRecord
   validates :surface, presence: true
   validates :notes, presence: true
   validates :partner, presence: false
+  validates :opponent, presence: true
+  validates :opponent2, presence: false
 end
