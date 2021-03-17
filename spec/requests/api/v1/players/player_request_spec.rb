@@ -53,4 +53,25 @@ RSpec.describe 'Players API Request' do
     expect(player[:data][:attributes]).to have_key(:username)
     expect(player[:data][:attributes][:username]).to be_an String
   end
+
+  it 'can create a player record' do
+    player_params = ({
+      name: 'Tyler Fields',
+      ranking: "4.5",
+      location: 'Lone Tree, CO',
+      username: "tytyfields",
+      password: "12345",
+      })
+
+    headers = {"CONTENT_TYPE" => "application/json"}
+    post "/api/v1/players", headers: headers, params: JSON.generate(player_params)
+    created_player = Player.last
+    expect(response).to be_successful
+    expect(created_player.id).to be_an Integer
+    expect(created_player.name).to eq(player_params[:name])
+    expect(created_player.ranking).to eq(player_params[:ranking])
+    expect(created_player.location).to eq(player_params[:location])
+    expect(created_player.username).to eq(player_params[:username])
+    expect(created_player.password).to eq(player_params[:password])
+  end
 end
