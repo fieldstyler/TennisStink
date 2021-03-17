@@ -3,8 +3,12 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
 
-      resources :matches
+      namespace :matches do
+        get "/player/:id", to: 'player#index'
+      end
+
       resources :players
+      resources :matches
     end
   end
 end
