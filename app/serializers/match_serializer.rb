@@ -1,5 +1,5 @@
 class MatchSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :id, :type, :score, :result, :date, :surface, :notes
+  attributes :id, :match_type, :score, :result, :date, :surface, :notes
 end

@@ -6,7 +6,7 @@ RSpec.describe Match, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :type}
+    it { should validate_presence_of :match_type}
     it { should validate_presence_of :score}
     it { should validate_presence_of :result}
     it { should validate_presence_of :date}

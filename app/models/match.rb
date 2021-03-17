@@ -1,5 +1,5 @@
 class Match < ApplicationRecord
-  validates_presence_of :type
+  validates_presence_of :match_type
   validates_presence_of :score
   validates_presence_of :result
   validates_presence_of :date
