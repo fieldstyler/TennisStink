@@ -6,10 +6,10 @@ class Api::V1::PlayersController < ApplicationController
   def show
     render json: PlayerSerializer.new(Player.find(params[:id]))
   end
-  #
-  # def create
-  #   render json: PlayerSerializer.new(Player.create(player_params))
-  # end
+
+  def create
+    render json: PlayerSerializer.new(Player.create(player_params))
+  end
   #
   # def update
   #   render json: PlayerSerializer.new(Player.update(params[:id], player_params))
@@ -20,9 +20,9 @@ class Api::V1::PlayersController < ApplicationController
   #   render status: 204
   # end
   #
-  # private
-  #
-  # def player_params
-  #   params.permit(:name, :ranking, :location, :username, :password)
-  # end
+  private
+
+  def player_params
+    params.permit(:name, :ranking, :location, :username, :password)
+  end
 end
