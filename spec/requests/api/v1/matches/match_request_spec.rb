@@ -141,8 +141,29 @@ RSpec.describe 'Matches API Request' do
     expect(updated_match.notes).to eq("I'm pretty amazing")
   end
 
-  it 'returns all matches for a specific player id' do
+  it 'can delete a match record' do
+    tyty = Player.create!(name: "Tyler Fields", ranking: "4.5", location: "Lone Tree, CO", username: "tytyfields", password: "12345")
+    match = tyty.matches.create!(match_type: "Singles", score: "6-4, 6-0", result: "Win", date: "01-03-2021", surface: "Hard Court")
 
+    expect(Match.count).to eq(1)
+    expect{ delete "/api/v1/matches/#{match.id}" }.to change(Match, :count).by(-1)
+    expect(response).to be_successful
+    expect{Match.find(match.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
+
+  it 'returns all matches for a specific player id' do
+    tyty = Player.create!(name: "Tyler Fields", ranking: "4.5", location: "Lone Tree, CO", username: "tytyfields", password: "12345")
+    harry = Player.create!(name: "Harry Fields", ranking: "4.5", location: "Lone Tree, CO", username: "hayhayfields", password: "abcde")
+    match1 = tyty.matches.create!(match_type: "Singles", score: "6-4, 6-0", result: "Win", date: "01-03-2021", surface: "Hard Court", notes: "Played well. Stay aggressive throughout the match.")
+    match2 = tyty.matches.create!(match_type: "Singles", score: "6-3, 7-6(3)", result: "Win", date: "02-13-2021", surface: "Clay", notes: "Bad forehand. Backswing too close to body.")
+    match3 = harry.matches.create!(match_type: "Singles", score: "2-6, 6-4, 10-8", result: "Loss", date: "10-03-2020", surface: "Hard Court", notes: "Going for too much on my shots")
+    match4 = harry.matches.create!(match_type: "Singles", score: "7-5, 6-1", result: "Win", date: "06-22-2020", surface: "Hard Court", notes: "Way too many double faults")
+
+    get "/api/v1/matches/player/#{tyty.id}"
+
+    expect(response).to be_successful
+    matches = JSON.parse(response.body, symbolize_names: true)
+    expect(matches[:data].size).to eq(2)
   end
 
 

@@ -10,16 +10,16 @@ class Api::V1::MatchesController < ApplicationController
   def create
     render json: MatchSerializer.new(Match.create(match_params))
   end
-  
+
   def update
     render json: MatchSerializer.new(Match.update(params[:id], match_params))
   end
-  #
-  # def destroy
-  #   Match.destroy(params[:id])
-  #   render status: 204
-  # end
-  #
+
+  def destroy
+    Match.destroy(params[:id])
+    # render status: 204
+  end
+
   private
 
   def match_params
