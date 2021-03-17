@@ -3,9 +3,9 @@ class Api::V1::MatchesController < ApplicationController
     render json: MatchSerializer.new(Match.all)
   end
 
-  # def show
-  #   render json: MatchSerializer.new(Match.find(params[:id]))
-  # end
+  def show
+    render json: MatchSerializer.new(Match.find(params[:id]))
+  end
   #
   # def create
   #   render json: MatchSerializer.new(Match.create(match_params))
