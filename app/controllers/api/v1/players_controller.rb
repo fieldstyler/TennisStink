@@ -3,9 +3,9 @@ class Api::V1::PlayersController < ApplicationController
     render json: PlayerSerializer.new(Player.all)
   end
 
-  # def show
-  #   render json: PlayerSerializer.new(Player.find(params[:id]))
-  # end
+  def show
+    render json: PlayerSerializer.new(Player.find(params[:id]))
+  end
   #
   # def create
   #   render json: PlayerSerializer.new(Player.create(player_params))
