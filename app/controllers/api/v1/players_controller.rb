@@ -10,10 +10,10 @@ class Api::V1::PlayersController < ApplicationController
   def create
     render json: PlayerSerializer.new(Player.create(player_params))
   end
-  #
-  # def update
-  #   render json: PlayerSerializer.new(Player.update(params[:id], player_params))
-  # end
+  
+  def update
+    render json: PlayerSerializer.new(Player.update(params[:id], player_params))
+  end
   #
   # def destroy
   #   Player.destroy(params[:id])
