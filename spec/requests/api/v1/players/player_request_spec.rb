@@ -94,4 +94,21 @@ RSpec.describe 'Players API Request' do
     expect(new_player.username).to_not eq(username)
     expect(new_player.username).to eq('tytyfieldsisdabomb')
   end
+
+  it "can destroy a player record" do
+    player = Player.create!({
+      name: 'Tyler Fields',
+      ranking: "4.5",
+      location: 'Lone Tree, CO',
+      username: "tytyfields",
+      password: "12345",
+      })
+
+    expect(Player.count).to eq(1)
+
+    expect{ delete "/api/v1/players/#{player.id}" }.to change(Player, :count).by(-1)
+
+    expect(response).to be_successful
+    expect{Player.find(player.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
