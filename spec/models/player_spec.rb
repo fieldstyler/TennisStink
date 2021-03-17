@@ -10,4 +10,4 @@ RSpec.describe Player, type: :model do
   describe 'relationships' do
     it {should have_many(:matches)}
   end
-end 
+end
