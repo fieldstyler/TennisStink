@@ -74,4 +74,24 @@ RSpec.describe 'Players API Request' do
     expect(created_player.username).to eq(player_params[:username])
     expect(created_player.password).to eq(player_params[:password])
   end
+
+  it "can update a player record" do
+    player = Player.create!({
+      name: 'Tyler Fields',
+      ranking: "4.5",
+      location: 'Lone Tree, CO',
+      username: "tytyfields",
+      password: "12345",
+      })
+    username = Player.last.username
+    player_params = { username: 'tytyfieldsisdabomb' }
+    headers = {"CONTENT_TYPE" => 'application/json'}
+
+    patch "/api/v1/players/#{player.id}", headers: headers, params: JSON.generate(player_params)
+    new_player = Player.find_by(id: player.id)
+
+    expect(response).to be_successful
+    expect(new_player.username).to_not eq(username)
+    expect(new_player.username).to eq('tytyfieldsisdabomb')
+  end
 end
