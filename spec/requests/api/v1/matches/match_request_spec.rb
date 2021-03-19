@@ -158,7 +158,6 @@ RSpec.describe 'Matches API Request' do
     match2 = tyty.matches.create!(match_type: "Singles", score: "6-3, 7-6(3)", result: "Win", date: "02-13-2021", surface: "Clay", notes: "Bad forehand. Backswing too close to body.")
     match3 = harry.matches.create!(match_type: "Singles", score: "2-6, 6-4, 10-8", result: "Loss", date: "10-03-2020", surface: "Hard Court", notes: "Going for too much on my shots")
     match4 = harry.matches.create!(match_type: "Singles", score: "7-5, 6-1", result: "Win", date: "06-22-2020", surface: "Hard Court", notes: "Way too many double faults")
-
     get "/api/v1/matches/player/#{tyty.id}"
 
     expect(response).to be_successful
@@ -166,5 +165,28 @@ RSpec.describe 'Matches API Request' do
     expect(matches[:data].size).to eq(2)
   end
 
+  it 'can filter results by match result and surface' do
+    tyty = Player.create!(name: "Tyler Fields", ranking: "4.5", location: "Lone Tree, CO", username: "tytyfields", password: "12345")
+    harry = Player.create!(name: "Harry Fields", ranking: "4.5", location: "Lone Tree, CO", username: "hayhayfields", password: "abcde")
+    match1 = tyty.matches.create!(match_type: "Singles", score: "6-4, 6-0", result: "Win", date: "01-03-2021", surface: "Hard Court", notes: "Played well. Stay aggressive throughout the match.")
+    match2 = tyty.matches.create!(match_type: "Singles", score: "6-3, 7-6(3)", result: "Win", date: "02-13-2021", surface: "Clay", notes: "Bad forehand. Backswing too close to body.")
+    match2 = tyty.matches.create!(match_type: "Doubles", score: "6-3, 7-5", result: "Win", date: "04-22-2019", surface: "Clay", notes: "I'm awesome")
+    match3 = harry.matches.create!(match_type: "Singles", score: "2-6, 6-4, 10-8", result: "Loss", date: "10-03-2020", surface: "Hard Court", notes: "Going for too much on my shots")
+    match4 = harry.matches.create!(match_type: "Singles", score: "7-5, 6-1", result: "Win", date: "06-22-2020", surface: "Hard Court", notes: "Way too many double faults")
+    get "/api/v1/matches/player/#{tyty.id}/find_all?result=Win&surface=Clay"
+
+    expect(response).to be_successful
+    matches = JSON.parse(response.body, symbolize_names: true)
+    expect(matches[:data].size).to eq(2)
+    match_hash = matches[:data]
+    match_hash.each do |match|
+      expect(match).to have_key(:id)
+      expect(match).to have_key(:attributes)
+      expect(match[:attributes]).to have_key(:surface)
+      expect(match[:attributes][:surface]).to eq("Clay")
+      expect(match[:attributes]).to have_key(:result)
+      expect(match[:attributes][:result]).to eq("Win")
+    end
+  end
 
 end
