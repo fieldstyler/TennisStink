@@ -173,6 +173,7 @@ RSpec.describe 'Matches API Request' do
     match2 = tyty.matches.create!(match_type: "Doubles", score: "6-3, 7-5", result: "Win", date: "04-22-2019", surface: "Clay", notes: "I'm awesome")
     match3 = harry.matches.create!(match_type: "Singles", score: "2-6, 6-4, 10-8", result: "Loss", date: "10-03-2020", surface: "Hard Court", notes: "Going for too much on my shots")
     match4 = harry.matches.create!(match_type: "Singles", score: "7-5, 6-1", result: "Win", date: "06-22-2020", surface: "Hard Court", notes: "Way too many double faults")
+    
     get "/api/v1/matches/player/#{tyty.id}/find_all?result=Win&surface=Clay"
 
     expect(response).to be_successful
