@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
       namespace :matches do
         get "/player/:id", to: 'player#index'
+        get "/player/:id/find_all", to: 'filters/search#index'
       end
 
       resources :players
